@@ -17,7 +17,6 @@ public class ApplicationController {
 		model.addAttribute("msgArgument", "Maven Java Web Application Project: Success!");
 
 		return "index";
- 
 	}
  
 	@RequestMapping(value="/Print/{arg}", method = RequestMethod.GET)
