@@ -1,11 +1,6 @@
 pipeline {
     agent any
     stages {
-		stage('Stage: Poll SCM') {
-			steps {
-				triggers { pollSCM('H */4 * * 1-5') }
-			}
-		}
 		stage('Stage: Compile') {
 			steps {
 				echo 'Compiling the Projects ..............'
