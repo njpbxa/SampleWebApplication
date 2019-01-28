@@ -1,7 +1,13 @@
 pipeline {
     agent any
     stages {
-		
+		stage('Setup') {
+			steps {
+				script {
+				properties([pipelineTriggers([[$class:"GitHubPushTrigger"]])])
+				}
+			}
+		}
 		stage('Stage: Compile') {
 			steps {
 				echo 'Compiling the Projects ..............'
