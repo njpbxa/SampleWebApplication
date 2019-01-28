@@ -21,7 +21,7 @@ public class ApplicationController {
  
 	@RequestMapping(value="/Print/{arg}", method = RequestMethod.GET)
 	public String welcomeName(@PathVariable String arg, ModelMap model) {
-		model.addAttribute("msgArgument",  "Maven Java Web Application Project, input variable: " + arg);
+		model.addAttribute("msgArgument", "Maven Java Web Application Project, input variable: " + arg);
 		
 		return "index";
 	}
