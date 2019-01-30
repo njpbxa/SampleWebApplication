@@ -25,5 +25,12 @@ pipeline {
 				}
 			}
 		}
+		
+		stage('Stage: Deploy in WAS') {
+			steps {
+				echo 'Deploying in WAS ..............'
+				build job: 'DeployToWAS', parameters: [string(name: 'warPath', value: 'PipelineByAlakD/*.war')]
+			}
+		}
     }
 }
