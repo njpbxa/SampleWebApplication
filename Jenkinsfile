@@ -17,6 +17,34 @@ pipeline {
 				}
 			}
 		}
+		
+		stage('Stage: SonarQube Analysis') {
+			steps {
+				echo 'Generating Sonar report..'
+				script {
+					env.scannerHome = "${tool 'sonarqube'}"
+					pom = readMavenPom file:'pom.xml'
+					env.PROJECT_VERSION = pom.version
+				}
+				withSonarQubeEnv('sonarqube') {
+					sh " '
+						echo "scannerHome = ${scannerHome}"
+						echo "JAVA_HOME = ${JAVA_HOME}"
+						echo "sonar.projectVersion = ${PROJECT_VERSION}"
+					"" '
+					sh '${scannerHome}/bin/sonar-scanner -Dsonar.projectVersion="${PROJECT_VERSION}"'
+				}
+			}
+		}
+
+		stage("Stage: Quality Gate") {
+			steps {
+				timeout(time:1, unit:'HOURS'){
+					waitForQualityGate abortPipeline:true
+				}
+			}
+		}
+		
 		stage('Stage: Packaging') {
 			steps {
 				echo 'Packaging the Projects ..............'
