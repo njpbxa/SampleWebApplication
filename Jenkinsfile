@@ -28,6 +28,15 @@ pipeline {
 			}
 		}
 
+		stage("Stage: Quality Gate") {
+			steps {
+				timeout(time:5, unit:'MINUTES'){
+					sleep(10)
+					waitForQualityGate abortPipeline:true
+				}
+			}
+		}
+		
 		stage('Stage: Packaging') {
 			steps {
 				echo 'Packaging the Projects ..............'
