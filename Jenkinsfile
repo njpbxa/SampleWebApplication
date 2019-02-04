@@ -27,11 +27,11 @@ pipeline {
 					env.PROJECT_VERSION = pom.version
 				}
 				withSonarQubeEnv('sonarqube') {
-					sh " '
+					sh '
 						echo "scannerHome = ${scannerHome}"
 						echo "JAVA_HOME = ${JAVA_HOME}"
 						echo "sonar.projectVersion = ${PROJECT_VERSION}"
-					"" '
+					  '
 					sh '${scannerHome}/bin/sonar-scanner -Dsonar.projectVersion="${PROJECT_VERSION}"'
 				}
 			}
