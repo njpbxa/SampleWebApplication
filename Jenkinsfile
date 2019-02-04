@@ -20,9 +20,8 @@ pipeline {
 		
 		stage('Stage: SonarQube Analysis') {
 			steps {
-				def scannerHome = tool 'scannerHome';
-				withSonarQubeEnv('sonarqube') {
-				  sh "${scannerHome}/bin/sonar-scanner"
+				withMaven(maven : 'maven_3_6_0'){
+					sh 'mvn sonar:sonar'
 				}
 			}
 		}
