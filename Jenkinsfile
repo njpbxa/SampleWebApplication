@@ -45,13 +45,13 @@ pipeline {
 				}
 			}
 		}
-		lock(resource:'PipelineByAlakD/target/*.war'){
-		stage('Stage: Deploy in WAS') {
-			steps {
-				echo 'Deploying in WAS ..............'
-				build job: 'DeployToWAS', parameters: [string(name: 'WAR_LOC', value: 'PipelineByAlakD/target/*.war'), string(name: 'APP_NAME', value: 'SampleWebApplication')]
+		lock(job: 'DeployToWAS'){
+			stage('Stage: Deploy in WAS') {
+				steps {
+					echo 'Deploying in WAS ..............'
+					build job: 'DeployToWAS', parameters: [string(name: 'WAR_LOC', value: 'PipelineByAlakD/target/*.war'), string(name: 'APP_NAME', value: 'SampleWebApplication')]
+				}
 			}
-		}
 		}
     }
 }
