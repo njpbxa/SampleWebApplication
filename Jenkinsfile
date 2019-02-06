@@ -45,7 +45,7 @@ pipeline {
 				}
 			}
 		}
-		lock{
+		lock(resource:'PipelineByAlakD/target/*.war'){
 		stage('Stage: Deploy in WAS') {
 			steps {
 				echo 'Deploying in WAS ..............'
