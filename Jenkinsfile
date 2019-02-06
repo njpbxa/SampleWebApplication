@@ -45,9 +45,10 @@ pipeline {
 				}
 			}
 		}
-		lock(job: 'DeployToWAS'){
-			stage('Stage: Deploy in WAS') {
-				steps {
+		
+		stage('Stage: Deploy in WAS') {
+			steps {
+				lock(job: 'DeployToWAS'){
 					echo 'Deploying in WAS ..............'
 					build job: 'DeployToWAS', parameters: [string(name: 'WAR_LOC', value: 'PipelineByAlakD/target/*.war'), string(name: 'APP_NAME', value: 'SampleWebApplication')]
 				}
