@@ -2,7 +2,7 @@ pipeline {
     agent any
     stages {
 	
-		stage('Compiling the Projects ..............') {
+		stage('Stage: Compile Projects') {
 			steps{
 				sh 'mvn clean compile'
 			}
@@ -10,19 +10,14 @@ pipeline {
 		
 		stage('Stage: Unit Test') {
 			steps {
-				echo 'Running Unit Tests ..............'
-				withMaven(maven : 'maven_3_6_0'){
-					sh 'mvn test'
-				}
+				sh 'mvn test'
 			}
 		}
 		
 		stage('Stage: SonarQube Analysis') {
 			steps {
 				withSonarQubeEnv('sonarqube') {
-                    withMaven(maven:'maven_3_6_0') {
-                        sh 'mvn sonar:sonar'
-                    }
+					sh 'mvn sonar:sonar'
                 }
 			}
 		}
@@ -38,10 +33,7 @@ pipeline {
 		
 		stage('Stage: Packaging') {
 			steps {
-				echo 'Packaging the Projects ..............'
-				withMaven(maven : 'maven_3_6_0'){
-					sh 'mvn package'
-				}
+				sh 'mvn package'
 			}
 		}
 		
