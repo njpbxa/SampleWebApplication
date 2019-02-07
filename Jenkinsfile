@@ -1,14 +1,13 @@
 pipeline {
     agent any
     stages {
-		stage('Stage: Compile') {
-			steps {
-				echo 'Compiling the Projects ..............'
-				withMaven(maven : 'maven_3_6_0'){
-					sh 'mvn clean compile'
-				}
+	
+		stage('Compiling the Projects ..............') {
+			steps{
+				sh 'mvn clean compile'
 			}
 		}
+		
 		stage('Stage: Unit Test') {
 			steps {
 				echo 'Running Unit Tests ..............'
