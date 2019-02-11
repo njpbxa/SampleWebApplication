@@ -8,6 +8,9 @@ from datetime import date
 from dateutil.relativedelta import relativedelta
 import datetime
 from IPython.display import HTML
+from email.mime.application import MIMEApplication
+from email.mime.multipart import MIMEMultipart
+from email.MIMEBase import MIMEBase
 from smtplib import SMTP
 import smtplib
 import sys
@@ -17,21 +20,19 @@ import xlsxwriter
 import re
 import requests
 import json
+from beautifultable import BeautifulTable
 import smtplib
+import csv
+from tabulate import tabulate
 import sys
 import traceback
+from email.MIMEMultipart import MIMEMultipart
+from email.MIMEText import MIMEText
 import email
-from email.mime.image import MIMEImage
-from email.mime.text import MIMEText
+from email.MIMEImage import MIMEImage
 from email import encoders
 import matplotlib.dates as mdates
-from email import encoders
-from email.message import Message
-from email.mime.audio import MIMEAudio
-from email.mime.base import MIMEBase
-from email.mime.image import MIMEImage
-from email.mime.multipart import MIMEMultipart
-from email.mime.text import MIMEText
+%matplotlib inline
 
 array=[]
 def change_date_format(dt):
@@ -69,8 +70,7 @@ df = df[["Sl_No", "Issue_Date", "Project", "Severity", "Status", "File Name","Is
 
 print(len(array))
 
-date_time = array
-date_time = pd.to_datetime(date_time)
+date_time = pd.to_datetime(array)
 temp = [2, 4, 6, 4, 6, 3,2, 4, 6, 4, 6, 3,2, 4, 6, 4, 6, 3,9,4,2,4,7 ]
 
 DF = pd.DataFrame()
@@ -81,12 +81,15 @@ fig, ax = plt.subplots()
 fig.subplots_adjust(bottom=0.10)
 plt.title('Trend Analysis')
 plt.xlabel('Dates')
-plt.ylabel('No. of Issues')
+plt.ylabel('No of Issues')
 plt.xticks(rotation=90)
 plt.plot(DF)
 plt.tight_layout()
-plt.savefig('D:\\Alak\'s\\tmpFolder\\Trend_Analysis.png')
+plt.savefig('C:\\Users\\DB040620\\Desktop\\Trend_Analysis.png')
 print('Graph saved')
+
+
+
 
 def color_negative_red(value):
     color = 'red' if value <9 else 'blue'
@@ -95,7 +98,7 @@ def color_negative_red(value):
 df.style.applymap(color_negative_red)
 
 
-writer = pd.ExcelWriter("D:\\Alak\'s\\tmpFolder\\SonarReport.xlsx", engine='xlsxwriter')
+writer = pd.ExcelWriter("C:\Users\DB040620\Desktop\SonarReport.xlsx", engine='xlsxwriter')
 df.to_excel(writer, sheet_name="Sheet 1", index=False)
 workbook  = writer.book
 worksheet = writer.sheets['Sheet 1']
@@ -114,7 +117,7 @@ print("Data copied as excel file")
 
 try:
     sender = 'dipannita.basu@cerner.com'
-    receivers = ['alak.das@cerner.com']
+    receivers = ['dipannita.basu@cerner.com']
     msg = MIMEMultipart('mixed')
     msg['Subject'] = ('Sonar Report since '+ str(fromDate))
     print(('Sonar Report since '+ str(fromDate)))
@@ -128,8 +131,8 @@ try:
                '''.format(df.to_html(na_rep = "", index = False).replace('<th>','<th style = "background-color: #D7E4BC">'))
     
     
-    img_data = open('D:\\Alak\'s\\tmpFolder\\\Trend_Analysis.png', 'rb').read()
-    image = MIMEImage(img_data, name=os.path.basename('D:\\Alak\'s\\tmpFolder\\\Trend_Analysis.png'))
+    img_data = open('C:\\Users\\DB040620\\Desktop\\Trend_Analysis.png', 'rb').read()
+    image = MIMEImage(img_data, name=os.path.basename('C:\\Users\\DB040620\\Desktop\\Trend_Analysis.png'))
     msg.attach(image)
     
     htmlBody = MIMEText(dataFrame, 'html') 
@@ -137,7 +140,7 @@ try:
     
     print("Attaching")
     filename = "SonarReport.xlsx"
-    filepath = "D:\\Alak's\\tmpFolder\\SonarReport.xlsx"
+    filepath = "C:\\Users\\DB040620\\Desktop\\SonarReport.xlsx"
     print("Taking filename")
     attachment = MIMEBase('application', "octet-stream")
     print("Attachment Step 2")
@@ -153,9 +156,11 @@ try:
     smtpObj = smtplib.SMTP('smtprr.cerner.com:25')
     print("Tested login")
     smtpObj.sendmail('dipannita.basu@cerner.com',['nalanda.chakrabarti@cerner.com', 'dipannita.basu@cerner.com', 'rahul.roy@cerner.com', 'alak.das@cerner.com'], msg.as_string())         
-    print ("Successfully sent email")
+    print "Successfully sent email"
     smtpObj.quit()
     
 except Exception:
-    print ("Error: unable to send email")
+    print "Error: unable to send email"
     print (traceback.format_exc())
+    
+
