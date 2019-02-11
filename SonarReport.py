@@ -85,7 +85,7 @@ plt.ylabel('No. of Issues')
 plt.xticks(rotation=90)
 plt.plot(DF)
 plt.tight_layout()
-plt.savefig('D:\\Alak\'s\\tmpFolder\\Trend_Analysis.png')
+plt.savefig('C:\\Users\\ad040730\\Documents\\Trend_Analysis.png')
 print('Graph saved')
 
 def color_negative_red(value):
@@ -95,7 +95,7 @@ def color_negative_red(value):
 df.style.applymap(color_negative_red)
 
 
-writer = pd.ExcelWriter("D:\\Alak\'s\\tmpFolder\\SonarReport.xlsx", engine='xlsxwriter')
+writer = pd.ExcelWriter("C:\\Users\\ad040730\\Documents\\SonarReport.xlsx", engine='xlsxwriter')
 df.to_excel(writer, sheet_name="Sheet 1", index=False)
 workbook  = writer.book
 worksheet = writer.sheets['Sheet 1']
@@ -123,14 +123,14 @@ try:
     
     dataFrame = '''
                <h3>The Sonar issues since last 14 days.</h3>
-			   <img src="C:\\Users\\DB040620\\Desktop\\Trend_Analysis.png"></img> 
+			   <img src="C:\\Users\\ad040730\\Documents\\Trend_Analysis.png"></img> 
                {}
                <h3>Thanks</h3>
                '''.format(df.to_html(na_rep = "", index = False).replace('<th>','<th style = "background-color: #D7E4BC">'))
     
     
-    img_data = open('D:\\Alak\'s\\tmpFolder\\\Trend_Analysis.png', 'rb').read()
-    image = MIMEImage(img_data, name=os.path.basename('D:\\Alak\'s\\tmpFolder\\\Trend_Analysis.png'))
+    img_data = open('C:\\Users\\ad040730\\Documents\\Trend_Analysis.png', 'rb').read()
+    image = MIMEImage(img_data, name=os.path.basename('C:\\Users\\ad040730\\Documents\\Trend_Analysis.png'))
     msg.attach(image)
     
     htmlBody = MIMEText(dataFrame, 'html') 
@@ -138,7 +138,7 @@ try:
     
     print("Attaching")
     filename = "SonarReport.xlsx"
-    filepath = "D:\\Alak's\\tmpFolder\\SonarReport.xlsx"
+    filepath = "C:\\Users\\ad040730\\Documents\\SonarReport.xlsx"
     print("Taking filename")
     attachment = MIMEBase('application', "octet-stream")
     print("Attachment Step 2")
@@ -153,7 +153,7 @@ try:
     
     smtpObj = smtplib.SMTP('smtprr.cerner.com:25')
     print("Tested login")
-    smtpObj.sendmail('dipannita.basu@cerner.com',['nalanda.chakrabarti@cerner.com', 'dipannita.basu@cerner.com', 'rahul.roy@cerner.com', 'alak.das@cerner.com'], msg.as_string())         
+    smtpObj.sendmail('dipannita.basu@cerner.com', 'alak.das@cerner.com', msg.as_string())         
     print ("Successfully sent email")
     smtpObj.quit()
     
