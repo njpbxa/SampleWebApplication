@@ -32,7 +32,6 @@ from email.MIMEBase import MIMEBase
 from email.MIMEImage import MIMEImage
 from email import encoders
 import matplotlib.dates as mdates
-%matplotlib inline
 
 array=[]
 def change_date_format(dt):
@@ -96,7 +95,7 @@ def color_negative_red(value):
 df.style.applymap(color_negative_red)
 
 
-writer = pd.ExcelWriter("D:\Alak's\tmpFolder\SonarReport.xlsx", engine='xlsxwriter')
+writer = pd.ExcelWriter("D:\\Alak\'s\\tmpFolder\\SonarReport.xlsx", engine='xlsxwriter')
 df.to_excel(writer, sheet_name="Sheet 1", index=False)
 workbook  = writer.book
 worksheet = writer.sheets['Sheet 1']
