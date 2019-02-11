@@ -8,9 +8,6 @@ from datetime import date
 from dateutil.relativedelta import relativedelta
 import datetime
 from IPython.display import HTML
-from email.mime.application import MIMEApplication
-from email.mime.multipart import MIMEMultipart
-from email.MIMEBase import MIMEBase
 from smtplib import SMTP
 import smtplib
 import sys
@@ -20,18 +17,21 @@ import xlsxwriter
 import re
 import requests
 import json
-from beautifultable import BeautifulTable
 import smtplib
-import csv
-from tabulate import tabulate
 import sys
 import traceback
-from email.MIMEMultipart import MIMEMultipart
-from email.MIMEText import MIMEText
-from email.MIMEBase import MIMEBase
-from email.MIMEImage import MIMEImage
+import email
+from email.mime.image import MIMEImage
+from email.mime.text import MIMEText
 from email import encoders
 import matplotlib.dates as mdates
+from email import encoders
+from email.message import Message
+from email.mime.audio import MIMEAudio
+from email.mime.base import MIMEBase
+from email.mime.image import MIMEImage
+from email.mime.multipart import MIMEMultipart
+from email.mime.text import MIMEText
 
 array=[]
 def change_date_format(dt):
@@ -85,7 +85,7 @@ plt.ylabel('Counts')
 plt.xticks(rotation=90)
 plt.plot(DF)
 plt.tight_layout()
-plt.savefig('C:\\Users\\DB040620\\Desktop\\Trend_Analysis.png')
+plt.savefig('D:\\Alak\'s\\tmpFolder\\Trend_Analysis.png')
 print('Graph saved')
 
 def color_negative_red(value):
@@ -159,5 +159,3 @@ try:
 except Exception:
     print ("Error: unable to send email")
     print (traceback.format_exc())
-    
-
