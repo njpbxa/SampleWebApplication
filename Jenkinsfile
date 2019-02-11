@@ -21,6 +21,12 @@ pipeline {
                 }
 			}
 		}
+		
+		stage('Stage: Generate Sonar Report') {
+			steps {
+				sh  'python ./SonarReport.py'
+			}
+		}
 
 		stage("Stage: Quality Gate") {
 			steps {
