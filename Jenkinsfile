@@ -22,12 +22,6 @@ pipeline {
 			}
 		}
 		
-		stage('Stage: Generate Sonar Report') {
-			steps {
-				sh  'python ./tools/SonarReport.py'
-			}
-		}
-
 		stage("Stage: Quality Gate") {
 			steps {
 				timeout(time:5, unit:'MINUTES'){
