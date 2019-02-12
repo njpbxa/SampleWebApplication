@@ -153,10 +153,10 @@ try:
     
     smtpObj = smtplib.SMTP('smtprr.cerner.com:25')
     print("Tested login")
-    smtpObj.sendmail('dipannita.basu@cerner.com', 'alak.das@cerner.com', msg.as_string())         
+    smtpObj.sendmail('dipannita.basu@cerner.com',['nalanda.chakrabarti@cerner.com', 'dipannita.basu@cerner.com', 'rahul.roy@cerner.com', 'alak.das@cerner.com'], msg.as_string())         
     print ("Successfully sent email")
     smtpObj.quit()
     
 except Exception:
     print ("Error: unable to send email")
-    print (traceback.format_exc())
+	print (traceback.format_exc())

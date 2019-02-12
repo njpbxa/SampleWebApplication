@@ -24,7 +24,7 @@ pipeline {
 		
 		stage('Stage: Generate Sonar Report') {
 			steps {
-				sh  'python ./SonarReport.py'
+				sh  'python ./tools/SonarReport.py'
 			}
 		}
 
