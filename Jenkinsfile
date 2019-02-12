@@ -14,21 +14,14 @@ pipeline {
 			}
 		}
 		
-		
-		
 		stage('Stage: SonarQube Analysis') {
 			steps {
-				script {
-					env.scannerHome = "${tool 'sonarScanner'}"
-					pom = readMavenPom file:'pom.xml'
-					env.PROJECT_VERSION = pom.version
-				}
 				withSonarQubeEnv('sonarqube') {
-					 sh "${scannerHome}/bin/sonar-scanner -Dsonar.projectVersion="${PROJECT_VERSION}"'
+					sh 'mvn clean package sonar:sonar'
                 }
 			}
 		}
-		
+				
 		stage("Stage: Quality Gate") {
 			steps {
 				timeout(time:5, unit:'MINUTES'){
