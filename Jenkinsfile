@@ -14,10 +14,17 @@ pipeline {
 			}
 		}
 		
+		
+		
 		stage('Stage: SonarQube Analysis') {
 			steps {
+				script {
+					env.scannerHome = "${tool 'sonarScanner'}"
+					pom = readMavenPom file:'pom.xml'
+					env.PROJECT_VERSION = pom.version
+				}
 				withSonarQubeEnv('sonarqube') {
-					sh 'mvn sonar:sonar'
+					 sh "${scannerHome}/bin/sonar-scanner -Dsonar.projectVersion="${PROJECT_VERSION}"'
                 }
 			}
 		}
