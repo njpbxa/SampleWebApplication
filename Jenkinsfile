@@ -2,19 +2,19 @@ pipeline {
     agent any
     stages {
 	
-		stage('Stage: Compile Projects') {
+		stage('Compile Projects') {
 			steps{
 				sh 'mvn clean compile'
 			}
 		}
 		
-		stage('Stage: Unit Test') {
+		stage('Unit Test') {
 			steps {
 				sh 'mvn test'
 			}
 		}
 		
-		stage('Stage: SonarQube Analysis') {
+		stage('SonarQube Analysis') {
 			steps {
 				withSonarQubeEnv('sonarqube') {
 					sh 'mvn clean package sonar:sonar'
@@ -22,7 +22,7 @@ pipeline {
 			}
 		}
 				
-		stage("Stage: Quality Gate") {
+		stage("Quality Gate") {
 			steps {
 				timeout(time:5, unit:'MINUTES'){
 					sleep(10)
@@ -31,13 +31,13 @@ pipeline {
 			}
 		}
 		
-		stage('Stage: Packaging') {
+		stage('Packaging') {
 			steps {
 				sh 'mvn package'
 			}
 		}
 		
-		stage('Stage: Deploy in WAS') {
+		stage('Deploy in WAS') {
 			steps {
 				lock(resource: 'deploy-to-websphere'){
 					echo 'Deploying in WAS ..............'
