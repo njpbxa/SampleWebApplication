@@ -123,7 +123,7 @@ try:
     
     dataFrame = '''
                <h3>The Sonar issues since last 14 days.</h3>
-			   <img src="C:\\Users\\ad040730\\Documents\\Trend_Analysis.png"></img> 
+               <img src="C:\\Users\\ad040730\\Documents\\Trend_Analysis.png"></img> 
                {}
                <h3>Thanks</h3>
                '''.format(df.to_html(na_rep = "", index = False).replace('<th>','<th style = "background-color: #D7E4BC">'))
@@ -159,4 +159,4 @@ try:
     
 except Exception:
     print ("Error: unable to send email")
-	print (traceback.format_exc())
+    print (traceback.format_exc())
